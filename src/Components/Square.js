@@ -60,15 +60,17 @@ const Square = (props)=>{
       }
       if(autoPlayer===false){
         setTimeout(()=>{
-          setSquare([['','',''],['','',''],['','','']]);
+          newGame()
           role()
         },500)
       }
       }
       const newGame = ()=>{
+        setSign('x')
         setSquare([['','',''],['','',''],['','','']])
       }
         const onClickHandler = (keyChild,key) => {
+          console.log(playRoleState)
           role()
             if(sign==='x'){
               setSign('o')

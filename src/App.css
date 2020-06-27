@@ -1,6 +1,9 @@
 *{
   justify-content: center;
 }
+#root{
+  height: 100vh;
+}
 .info{
   font-size: 1.6rem;
 }

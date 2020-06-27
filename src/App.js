@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Info from './Components/Info'
+import Dialog from './Components/Dialog'
 import Square from './Components/Square'
 import './App.css'
 function App() {
@@ -10,35 +11,31 @@ function App() {
   const [counter1,setCounter1] = useState(0);
   const [counter2,setCounter2] = useState(0);
   const [autoPlayer,setAutoPlayer] = useState(false);
-  const [modal,setModal] = useState('d-block')
+  const [mode,setMode] = useState('d-block')
   const [gamePage,setGamePage] = useState('d-none')
+  const [dialogPage,setDialogPage] = useState('d-none')
   const red = '#d8345f';
   const blue = 'rgb(0, 91, 177)';
   
-  const props = {playRoleState,setPlayRole,autoPlayer,setGamePage,setAutoPlayer,Player1,setPlayer1,Player2,setPlayer2,sign,setSign,counter1,counter2,setCounter1,setCounter2,red,blue}
+  const props = {playRoleState,setPlayRole,autoPlayer,dialogPage,setDialogPage,setGamePage,setAutoPlayer,Player1,setPlayer1,Player2,setPlayer2,sign,setSign,counter1,counter2,setCounter1,setCounter2,red,blue}
   const singlePlayerHandler = ()=>{
     setAutoPlayer(true)
-    setModal('hidden')
-    setGamePage('')
+    setMode('d-none')
+    //setGamePage('')
+    setDialogPage('')
   }
   const offline2PlayersHandler = ()=>{
-    setModal('hidden')
-    setGamePage('')
+    setMode('d-none')
+    //setGamePage('')
+    setDialogPage('')
   }
   return (
-      <div className="App">
-        <div className='container'>
-        <div className={'modal '+modal} tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div className='container'>
+      <div className="App h-100 d-flex align-items-center ">
+        <div className='row container '>
+        <Dialog stateProps={props} />
+                  <div className={'container '+mode}>
                     <div className='row mb-1'><button onClick={singlePlayerHandler}>Singleplayer</button></div>
                     <div className='row mb-1'><button onClick={offline2PlayersHandler}>Multiplayer </button></div>
-                  </div>
-                </div>
-              </div>
-            </div>
         </div>
         <div className={gamePage}>
           <Info stateProps={props} />
