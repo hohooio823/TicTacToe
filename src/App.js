@@ -30,12 +30,13 @@ function App() {
     setDialogPage('')
   }
   return (
-      <div className="App h-100 d-flex align-items-center ">
-        <div className='row container '>
+      <div className="App h-100 d-flex ">
+        <div className='container align-self-center'>
         <Dialog stateProps={props} />
-                  <div className={'container '+mode}>
-                    <div className='row mb-1'><button onClick={singlePlayerHandler}>Singleplayer</button></div>
-                    <div className='row mb-1'><button onClick={offline2PlayersHandler}>Multiplayer </button></div>
+                  <div className={mode}>
+                    <h3 className='row mb-2'>Select Mode : </h3>
+                    <div className='row mb-1'><button onClick={singlePlayerHandler}>One player</button></div>
+                    <div className='row mb-1'><button onClick={offline2PlayersHandler}>Two players </button></div>
         </div>
         <div className={gamePage}>
           <Info stateProps={props} />

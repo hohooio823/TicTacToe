@@ -17,15 +17,15 @@ const Dialog = (props)=>{
     const player2 = ()=>{
         return(
             <>
-            <div>Player2</div>
-            <div className='row mb-1'><input placeholder='Name' onChange={onChangePlayer2} /></div>
+            <h5>Player 2</h5>
+            <div className='row mb-2'><input placeholder='Name' onChange={onChangePlayer2} /></div>
             </>
         )
     }
     return(
         <div className={dialogPage}>
-        <div>Player1</div>
-        <div className='row mb-1'><input placeholder='Name' onChange={onChangePlayer1} /></div>
+        <h5>Player 1</h5>
+        <div className='row mb-2'><input placeholder='Name' onChange={onChangePlayer1} /></div>
         {autoPlayer?null:player2()}
         <div className='row mb-1'><button onClick={play} >Play</button></div>
         </div>

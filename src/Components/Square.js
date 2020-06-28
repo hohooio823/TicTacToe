@@ -117,7 +117,7 @@ const Square = (props)=>{
       }
      return(
          <>
-         <div className='row mb-5' ><button onClick={newGame}>new Game</button></div>
+         <div className='row mt-2 mb-5' ><button onClick={newGame}>New game</button></div>
         <div className='row d-grid justify-center'>
             {square.map((row,key)=><div className='w-100 d-flex' key={key}>{row.map((column,keyChild)=>
               <div className='column' onClick={onClickHandler.bind(this,keyChild,key)} style={{pointerEvents:square[key][keyChild]!==''?'none':'auto',color:playRole===Player1?red:blue}} key={keyChild}>{square[key][keyChild]}</div>

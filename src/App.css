@@ -1,8 +1,12 @@
 *{
   justify-content: center;
+  text-align: center;
 }
 #root{
   height: 100vh;
+}
+.container{
+  margin-bottom: 25%!important;
 }
 .info{
   font-size: 1.6rem;
@@ -14,4 +18,36 @@
   text-align: center;
   padding: 1.5rem;
   font-size: 1.6rem;
+}
+input{
+  text-align:left;
+  padding-left: 1vw;
+}
+button{
+  width: 10%;
+  border-radius: 4px;
+  background-color: white;
+}
+@media (max-width: 575.98px) {
+  button{
+    width:28%
+  }
+ }
+
+@media (min-width: 575.98px) and (max-width: 767.98px) { 
+  button{
+    width:20%
+  }
+}
+
+@media (min-width:  767.98px) and (max-width: 991.98px) {
+  button{
+    width:15%
+  }
+}
+
+@media (min-width: 991.98px) and (max-width: 1199.98px) { 
+  button{
+    width:14%
+  }
 }
