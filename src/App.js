@@ -21,12 +21,10 @@ function App() {
   const singlePlayerHandler = ()=>{
     setAutoPlayer(true)
     setMode('d-none')
-    //setGamePage('')
     setDialogPage('')
   }
   const offline2PlayersHandler = ()=>{
     setMode('d-none')
-    //setGamePage('')
     setDialogPage('')
   }
   return (

@@ -3,7 +3,9 @@ import React,{useState} from 'react'
 const Square = (props)=>{
     props = props.stateProps
     const [square,setSquare] = useState([['','',''],['','',''],['','','']]);
-    const {playRoleState,setPlayRole,autoPlayer,online,secondPlayer,Player1,Player2,sign,setSign,counter1,counter2,setCounter1,setCounter2,red,blue} = props; 
+    const [winState,setWin] = useState('');
+    const [hideWinner,setHideWinner]=useState('')
+    const {playRoleState,setPlayRole,autoPlayer,Player1,Player2,sign,setSign,counter1,counter2,setCounter1,setCounter2,red,blue} = props; 
     let playRole =playRoleState;
     let winner;
     let counter = 0;
@@ -19,6 +21,8 @@ const Square = (props)=>{
       }
     const runAutoPlayer = (key,keyChild)=>{
       if(autoPlayer===true){
+        if(square[0].filter(x => x === '').length+square[1].filter(x => x === '').length+square[2].filter(x => x === '').length===0){
+            winner='null'};
         let tempsquare = square;
         let tempSign;
         const getRandomInt = (min,max)=>{
@@ -37,15 +41,19 @@ const Square = (props)=>{
           }else{
             tempSign = 'x'
           }
-          let random = getRandomInt();
-          if(random===undefined){
-            random = getRandomInt();
-          }else{
-            [key,keyChild]= random;
+          if(winner!=='null'){
+            let random = getRandomInt();
+            if(random===undefined){
+              random = getRandomInt();
+            }else{
+              [key,keyChild]= random;
+            }
           }
           tempsquare[key][keyChild]=tempSign
-          setTimeout(()=>setSquare(tempsquare),2000)
           win()
+          if(winner==='win'){
+            role()
+          }
           setSign('x')
         }
       }
@@ -58,26 +66,25 @@ const Square = (props)=>{
       if(playRole===Player2){
           setCounter2(counter2+1)
       }
-      if(autoPlayer===false){
         setTimeout(()=>{
           newGame()
           role()
         },500)
-      }
+    
       }
       const newGame = ()=>{
         setSign('x')
         setSquare([['','',''],['','',''],['','','']])
       }
         const onClickHandler = (keyChild,key) => {
-          console.log(playRoleState)
+          winner='';
+          setHideWinner('d-none')
           role()
             if(sign==='x'){
               setSign('o')
             }else{
               setSign('x')
             }
-          console.log(sign)
           let tempsquare = square;
           tempsquare[key][keyChild]=sign;
           setSquare([...tempsquare])
@@ -86,8 +93,7 @@ const Square = (props)=>{
           
       }
       const win = ()=>{
-        let result;
-        if(winner!='win'){
+        if(winner!=='win'){
           if(square[0][0]===square[0][1] && square[0][1]===square[0][2] && square[0][0]!==''){
             winner='win'
           }else if(square[1][0]===square[1][1] && square[1][1]===square[1][2] && square[1][2]!==''){
@@ -113,11 +119,38 @@ const Square = (props)=>{
           if(counter !== 1 ){
             counterIncrement()
           }
+          setWin(winner)
         }
+        if(winner==='null'){
+          newGame()
+          setWin(winner)
+        }
+        if(winner!==''){
+          setHideWinner('')
+        }
+      }
+      const Win= ()=>{
+        if(winState==='win'){
+          return(
+            <div className={'alert alert-danger w-50  mx-auto mt-2 ' + hideWinner} role="alert">
+              {playRole===Player2?Player1:Player2} Won
+            </div>
+          )
+        }
+        if(winState==='null'){
+          return(
+            <div className={'alert alert-danger w-50  mx-auto mt-2 ' + hideWinner} role="alert">
+               Null ( None of you won )
+            </div>
+          )
+        }
+        return null
+        
       }
      return(
          <>
-         <div className='row mt-2 mb-5' ><button onClick={newGame}>New game</button></div>
+         <Win />
+         <div className='row mt-1 mb-3' ><button onClick={newGame}>New game</button></div>
         <div className='row d-grid justify-center'>
             {square.map((row,key)=><div className='w-100 d-flex' key={key}>{row.map((column,keyChild)=>
               <div className='column' onClick={onClickHandler.bind(this,keyChild,key)} style={{pointerEvents:square[key][keyChild]!==''?'none':'auto',color:playRole===Player1?red:blue}} key={keyChild}>{square[key][keyChild]}</div>
